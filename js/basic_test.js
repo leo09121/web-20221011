@@ -8,8 +8,8 @@ var jb = 'hi'; // 변수 선언 뒤에 주석처리 가능
 var jb = 'hi'; // 변수 선언 후 주석 가능
 var a = 1;
 var b;
-b = 5;
-
+b = 5;  
+    
 if (true) {
   let c = 'let 접근';
   var c_1 = 'var 접근';
