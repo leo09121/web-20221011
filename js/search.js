@@ -6,7 +6,7 @@ function search_message(){
    document.getElementById("search_message").innerHTML = search_str.value; //태그에 값 추가 
    console.log(search_str.value); // 콘솔에 출력
    }
-
+ 
    
 
   
