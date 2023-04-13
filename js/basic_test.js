@@ -10,7 +10,7 @@ var a = 1;
 var b;
 b = 5;  
     
-if (true) {
+if (true) { 
   let c = 'let 접근';
   var c_1 = 'var 접근';
 } 

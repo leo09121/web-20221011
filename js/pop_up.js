@@ -8,7 +8,7 @@ function showclock(){
         if(currentDate.getHours()>12){  // 12시 보다 크면 오후 아니면 오전
           msg += "오후";
           msg += currentDate.getHours()-12+"시";
-       }
+       } 
        else {
          msg += "오전";
          msg += currentDate.getHours()+"시";
