@@ -1,16 +1,22 @@
-document.getElementById("search_btn").addEventListener('click', search_message);
+document.getElementById("form_main").addEventListener('submit', search_message);
 
-function search_message(){
-   alert("검색을 수행합니다!"); 
-   let search_str = document.querySelector("#search_txt"); // 변수에 저장
-    if(search_str.value.length === 0){ // 문자 길이, 엄격한 비교
-       alert("검색어가 비었습니다. 입력해주세요"); 
+function search_message(event) {
+    event.preventDefault(); // Prevent form submission
+    alert("검색을 수행합니다!");
+    let search_str = document.querySelector("#search_txt").value.toLowerCase(); // Get search input value and convert to lowercase
+    let profanityWords = ["바보", "멍청이", "미친"]; // Profanity words to filter
+    let searchLimitReached = false; // Flag to check if search limit is reached
+
+    for (let i = 0; i < profanityWords.length; i++) {
+        if (search_str.includes(profanityWords[i])) {
+            alert("비속어가 포함되었습니다. 검색이 제한됩니다.");
+            searchLimitReached = true;
+            break;
+        }
     }
-    else{
-       alert("검색을 수행합니다!");
-       let text = document.getElementById("search_message").innerHTML = search_str.value;
-       document.querySelector("#form_main").submit();
+
+  if (!searchLimitReached) {
+        document.getElementById("search_message").innerText = "현재 검색어 : " + search_str;
+        document.getElementById("form_main").submit();
     }
 }
-
-   
