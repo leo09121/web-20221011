@@ -17,7 +17,7 @@
     
 </head>
     
-     <body class="text-center">
+     <body class="text-center" onload="init();">
     <br><br><br>
          <div style="text-align:center" class="mx-auto">
                 <a href="https://www.google.co.kr/?hl=ko" target="_blank"><img src="img/gogle.png" class="img fluid" alt="구글이미지"></a>
@@ -40,7 +40,7 @@
 
         <div class="checkbox mb-3">
           <label>
-            <input type="checkbox" value="remember-me"> 아이디 기억
+            <input type="checkbox" value="remember-me" id="idSaveCheak"> 아이디 기억
           </label>
         </div>
         <button class="w-100 btn btn-lg btn-primary" onclick="login()" type="submit">로그인하기</button>

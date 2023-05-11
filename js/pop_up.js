@@ -41,7 +41,7 @@ function getCookie(name) {
             for ( var index in cookie_array) {
                 var cookie_name = cookie_array[index].split("=");
                 
-                if (cookie_name[0] == "popupYN") {
+                if (cookie_name[0] == "id") {
                     return cookie_name[1];
                 }
             }
