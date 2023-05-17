@@ -29,18 +29,39 @@ function closePopup() {
     if(id.value.length === 0 || password.value.length === 0){
         alert("아이디와 비밀번호를 모두 입력해주세요.")
     }else{
+        session_set(); //세션 생성
         form.submit();
-        get_id();
+        
+    }
+}
+
+function session_check() { //세션 검사
+    if (sessionStorage.getItem("Session_Storage_test")) {
+        alert("이미 로그인 되었습니다.");
+        location.href="index_login.html";
     }
 }
 
 
+function session_del() {//세션 삭제
+    // Check if the sessionStorage object exists
+    if (sessionStorage) {
+        // Retrieve data
+        sessionStorage.removeItem("Session_Storage_test");
+        alert("로그아웃 버튼 클릭 확인 : 세션 스토리지를 삭제합니다.");
+    } else {
+        alert("세션 스토리지 지원 x");
+    }
+}
+
 function logout(){
+    session_del(); // 세션 삭제
     location.href='../index.html';
 }
 
 
 function get_id(){
+    
     var getParameters = function(paramName){
     var returnValue;
     var url = location.href;
@@ -63,6 +84,8 @@ function deleteCookie(cookieName){
     document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
 }
 
+
+
 function init(){ // 로그인 폼에 쿠키에서 가져온 아이디 입력
     let id = document.querySelector("#floatingInput");
     let check = document.querySelector("#idSaveCheck");
@@ -72,4 +95,46 @@ function init(){ // 로그인 폼에 쿠키에서 가져온 아이디 입력
     id.value = get_id; 
     check.checked = true; 
     }
+    session_check(); // 세션 유무 검사
 }
+
+
+function session_set() { //세션 저장
+    let id = document.querySelector("#floatingInput");
+    let password = document.querySelector("#floatingPassword");
+
+    if (sessionStorage) {
+        let en_text = encrypt_text(password.value);
+        sessionStorage.setItem("Session_Storage_test", en_text);
+
+        
+    } else {
+        alert("로컬 스토리지 지원 x");
+    }
+}
+
+function session_get() { //세션 읽기
+    if (sessionStorage) {
+       return sessionStorage.getItem("Session_Storage_test");
+    } else {
+        alert("세션 스토리지 지원 x");
+    }
+}
+
+function encodeByAES256(key, data){
+    const cipher = CryptoJS.AES.encrypt(data, CryptoJS.enc.Utf8.parse(key), {
+        iv: CryptoJS.enc.Utf8.parse(""),
+        padding: CryptoJS.pad.Pkcs7,
+        mode: CryptoJS.mode.CBC
+    });
+    return cipher.toString();
+}
+
+function decodeByAES256(key, data){
+    const cipher = CryptoJS.AES.decrypt(data, CryptoJS.enc.Utf8.parse(key), {
+        iv: CryptoJS.enc.Utf8.parse(""),
+        padding: CryptoJS.pad.Pkcs7,
+        mode: CryptoJS.mode.CBC
+    });
+    return cipher.toString(CryptoJS.enc.Utf8);
+};
