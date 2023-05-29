@@ -115,7 +115,7 @@ function session_set() { //세션 저장
 
 function session_get() { //세션 읽기
     if (sessionStorage) {
-       return sessionStorage.getItem("Session_Storage_test");
+       return sessionStorage.getItem("Session_Storage_encrypted");
     } else {
         alert("세션 스토리지 지원 x");
     }
@@ -138,3 +138,15 @@ function decodeByAES256(key, data){
     });
     return cipher.toString(CryptoJS.enc.Utf8);
 };
+
+function addJavascript(jsname) { // 자바스크립트 외부 연동
+	var th = document.getElementsByTagName('head')[0];
+	var s = document.createElement('script');
+	s.setAttribute('type','text/javascript');
+	s.setAttribute('src',jsname);
+	th.appendChild(s);
+}
+addJavascript('/js/security.js'); // 암복호화 함수
+addJavascript('/js/session.js'); // 세션 함수
+addJavascript('/js/cookie.js'); // 쿠키 함수
+
